@@ -17,5 +17,19 @@ pipeline {
         sh 'mvn test'
       }
     }
+    stage('Build') {
+      steps {
+        sh 'docker build -t mini-app:stable .'
+      }
+    }
+
+    stage('Deploy to registry') {
+      steps {
+        withCredentials([usernamePassword(credentialsId: 'DockerHub', passwordVariable: 'password', usernameVariable: 'user')]) {
+          sh 'docker tag mini-app:stable marcosanjuan/mini-app:stable'
+          sh 'docker push marcosanjuan/mini-app:stable'
+        }
+      }
+    }
   }
 }
