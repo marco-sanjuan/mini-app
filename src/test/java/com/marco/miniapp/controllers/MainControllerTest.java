@@ -16,9 +16,4 @@ public class MainControllerTest {
 
         assertTrue(result.startsWith("Hello from"));
     }
-
-    @Test
-    public void failTest() {
-        fail();
-    }
 }
